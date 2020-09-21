@@ -35,7 +35,7 @@ Well, using a simple python🐍 script with a GraphQL⚛ query can save the day 
 - Return back inside your cloned repo ```GitKundli```
 - Now let's run our script and store our results in a csv file ```python gitkundli.py```
 
-<h2 align = 'center'>License 📜</h2>
+## License 📜
 <p align = 'center'><img src = 'https://media.giphy.com/media/XfD8VJDUurgMjNEP72/giphy.gif' width = 40%></p>
 
 [MIT License](./LICENSE)
