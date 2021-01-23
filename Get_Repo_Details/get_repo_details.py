@@ -17,6 +17,7 @@ def main():
   assert (config.REPONAME is not None and config.USERNAME is not None), "Invalid Details"
 
   # Specify Headers
+  # Note - Can only see collaborators if it is own repository
   headers = {'Authorization': "Token " + config.GITHUB_TOKEN}
   # API Request
   response = requests.post(
@@ -26,7 +27,7 @@ def main():
   
   json_data = json.loads(response.text)
 
-  print(json_data)
+  # Extract meaningful Information from
 
 
 if __name__ == '__main__':
