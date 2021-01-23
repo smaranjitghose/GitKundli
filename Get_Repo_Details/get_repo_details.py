@@ -42,9 +42,8 @@ if __name__ == '__main__':
 
   # Pretty display 
   print("-" * 80)
-  print(f"Stats for Repository {config.REPONAME} (Owner : {config.USERNAME}")
+  print(f"Stats for Repository {config.REPONAME} (Owner : {config.USERNAME})")
   print(f"Number of collaborators : {num_collaborators}")
   print(f"Number of Pull Requests : {num_pullRequests}")
   print(f"Number of Stars : {num_stars}")
   print(f"Number of Commits : {num_commits}")
-  
