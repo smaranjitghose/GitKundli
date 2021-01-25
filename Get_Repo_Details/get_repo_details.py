@@ -1,28 +1,67 @@
 # Script to GET Repo details from user
-# @Author - Sandip Dutta
-# Email - duttasandip11100@gmail.com
 
-# IMPORTS
 import json
 import requests
-import config
+import os
+import pprint
+
+# constants useful for the script
+BASE_URL = "https://api.github.com/graphql" # Github base url
+GITHUB_TOKEN = os.environ['GITHUB_TOKEN']  # Github token environment variable
+REPONAME, USERNAME = None, None # Defining 2 variables for storing the 
+
+def getQuery():
+  '''
+  Returns the query string that will fetch data from the API.
+  Gets the number of collaborators, number of stars, 
+  number of pull requests, and total commits of a particular repository.
+
+  Args:
+    None
+  
+  Return:
+    query : Query string which will be used to query the API endpoint
+  '''
+  query = """query {{
+    repository(name: \"{0}\", owner: \"{1}\") {{
+      collaborators {{
+        totalCount
+      }}
+      pullRequests {{
+        totalCount
+      }}
+      stargazers {{
+        totalCount
+      }}
+      object(expression: "master") {{
+        ... on Commit {{
+          history {{
+            totalCount
+          }}
+        }}
+      }}
+    }}
+  }}""".format(REPONAME, USERNAME)   # GraphQL Query
+  return query
+
+
 
 def getRepoDetails():
   # Main function
   # Set names of Repo and gets data from API Query
 
-  config.REPONAME = input("Enter Repo Name as it appears : ")
-  config.USERNAME = input("Enter the owner of the repository as it appears : ")
+  REPONAME = input("Enter Repo Name as it appears : ")
+  USERNAME = input("Enter the owner of the repository as it appears : ")
   # Sanity check
-  assert (config.REPONAME is not None and config.USERNAME is not None), "Invalid Details"
+  assert (REPONAME is not None and USERNAME is not None), "Invalid Details"
 
   # Specify Headers
   # Note - Can only see collaborators if it is own repository
-  headers = {'Authorization': "Token " + config.GITHUB_TOKEN}
+  headers = {'Authorization': "Token " + GITHUB_TOKEN}
   # API Request
   response = requests.post(
-    config.BASE_URL,
-    json={'query': config.getQuery()},
+    BASE_URL,
+    json={'query': getQuery()},
     headers=headers)
   
   json_data = json.loads(response.text)
@@ -42,7 +81,7 @@ if __name__ == '__main__':
 
   # Pretty display 
   print("-" * 80)
-  print(f"Stats for Repository {config.REPONAME} (Owner : {config.USERNAME})")
+  print(f"Stats for Repository {REPONAME} (Owner : {USERNAME})")
   print(f"Number of collaborators : {num_collaborators}")
   print(f"Number of Pull Requests : {num_pullRequests}")
   print(f"Number of Stars : {num_stars}")
