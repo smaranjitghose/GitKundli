@@ -4,20 +4,21 @@ import json
 import requests
 import os
 import pprint
+import fire
 
 # constants useful for the script
 BASE_URL = "https://api.github.com/graphql" # Github base url
 GITHUB_TOKEN = os.environ['GITHUB_TOKEN']  # Github token environment variable
-REPONAME, USERNAME = None, None # Defining 2 variables for storing the 
 
-def getQuery():
+def getQuery(repoName, userName):
   '''
   Returns the query string that will fetch data from the API.
   Gets the number of collaborators, number of stars, 
   number of pull requests, and total commits of a particular repository.
 
   Args:
-    None
+    repoName : Name of the repository from which to fetch data
+    userName : Name of the owner of the repository
   
   Return:
     query : Query string which will be used to query the API endpoint
@@ -41,19 +42,16 @@ def getQuery():
         }}
       }}
     }}
-  }}""".format(REPONAME, USERNAME)   # GraphQL Query
+  }}""".format(repoName, userName)   # GraphQL Query
   return query
 
 
-
-def getRepoDetails():
+def getRepoDetails(repoName, userName):
   # Main function
   # Set names of Repo and gets data from API Query
 
-  REPONAME = input("Enter Repo Name as it appears : ")
-  USERNAME = input("Enter the owner of the repository as it appears : ")
   # Sanity check
-  assert (REPONAME is not None and USERNAME is not None), "Invalid Details"
+  assert (repoName is not None and userName is not None), "Invalid Details"
 
   # Specify Headers
   # Note - Can only see collaborators if it is own repository
@@ -61,7 +59,7 @@ def getRepoDetails():
   # API Request
   response = requests.post(
     BASE_URL,
-    json={'query': getQuery()},
+    json={'query': getQuery(repoName, userName)},
     headers=headers)
   
   json_data = json.loads(response.text)
@@ -75,14 +73,18 @@ def getRepoDetails():
 
   return num_collaborators, num_pullRequests, num_stars, num_commits
 
-
-if __name__ == '__main__':
-  num_collaborators, num_pullRequests, num_stars, num_commits = getRepoDetails()
+def displayDetails(repoName, userName):
+  num_collaborators, num_pullRequests, num_stars, num_commits = getRepoDetails(repoName, userName)
 
   # Pretty display 
   print("-" * 80)
-  print(f"Stats for Repository {REPONAME} (Owner : {USERNAME})")
+  print(f"Stats for Repository {repoName} (Owner : {userName})")
   print(f"Number of collaborators : {num_collaborators}")
   print(f"Number of Pull Requests : {num_pullRequests}")
   print(f"Number of Stars : {num_stars}")
   print(f"Number of Commits : {num_commits}")
+
+
+
+if __name__ == '__main__':
+  fire.Fire(displayDetails)
