@@ -67,8 +67,8 @@ def user_info(access_token, username):
         response = requests.get(api_end_point, headers=headers)
         # Raise errors for specific error codes
         response.raise_for_status()
-        # Display the data
-        st.write(response.json())
+        # JSONify the data
+        data = response.json()
 
     # Handling various kinds of errors (4xx and 5xx i.e. client side errors and server side errors)
     except requests.exceptions.HTTPError as errh:
@@ -79,6 +79,20 @@ def user_info(access_token, username):
         st.error(errt)
     except requests.exceptions.RequestException as err:
         st.error(err)
+
+
+def fix_json_values(json_to_fix):
+    """
+    Function to for making certain unavailable values more readable
+    """
+    for k, v in json_to_fix.items():
+        if str(v) == "False":
+            json_to_fix[k] = "No"
+        if str(v) == "None":
+            json_to_fix[k] = "Not Available"
+        if str(v) == "True":
+            json_to_fix[k] = "Yes"
+    return json_to_fix
 
 
 if __name__ == "__main__":
