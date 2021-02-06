@@ -33,6 +33,28 @@ def main():
             user_info(access_token=acess_token, username=username)
 
 
+def local_css(file_name):
+    """
+    Function to load and render local stylesheets
+    """
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+
+def remote_css(url):
+    """
+    Function to load and render remote stylesheets
+    """
+    st.markdown(f'<link href="{url}" rel="stylesheet">', unsafe_allow_html=True)
+
+
+def icon(icon_name):
+    """
+    Function to load and render Material Icons
+    """
+    st.markdown(f'<i class="material-icons">{icon_name}</i>', unsafe_allow_html=True)
+
+
 def user_info(access_token, username):
     """
     Function to Fetch information about a GitHub user using Github RestAPI v3

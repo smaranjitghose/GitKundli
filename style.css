@@ -1,0 +1,21 @@
+/*
+Reference: https://discuss.streamlit.io/t/creating-a-nicely-formatted-search-field/1804
+*/
+body {
+  color: #fff;
+  background-color: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0),
+    rgba(255, 0, 0, 1)
+  );
+}
+.stButton > button {
+  color: #4f8bf9;
+  border-radius: 50%;
+  height: 3em;
+  width: 3em;
+}
+
+.stTextInput > div > div > input {
+  color: #4f8bf9;
+}
