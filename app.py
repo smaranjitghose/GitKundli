@@ -5,11 +5,17 @@ import streamlit as st
 
 
 def main():
+    """
+    Heart of the Streamlit App
+    """
+    # Default API Token
+    api_token = ""
     # Some Basic Configuration for StreamLit
-    st.beta_set_page_config(
-        page_title="Title of the webpage",
-        layout="centered",
-        initial_sidebar_state="collapsed",
+    st.set_page_config(
+        page_title="GitKundli",
+        page_icon="🧊",
+        layout="wide",
+        initial_sidebar_state="auto",
     )
     # Just making sure we are not bothered by File Encoding warnings
     st.set_option("deprecation.showfileUploaderEncoding", False)
@@ -18,6 +24,39 @@ def main():
     p_choice = st.sidebar.selectbox("Menu", pages)
     if p_choice == "Home":
         st.title("Welcome to GitKundli")
+    elif p_choice == "UserInfo":
+        st.title("Want to stalk a developer on GitHub?")
+        st.write("## We got you covered! :smile:")
+        acess_token = st.text_input("Enter your GitHub Token", type="password")
+        username = st.text_input("Enter the username of the profile", type="default")
+        if st.button("Fetch Data"):
+            user_info(access_token=acess_token, username=username)
+
+
+def user_info(access_token, username):
+    """
+    Function to Fetch information about a GitHub user using Github RestAPI v3
+    """
+    base_url = "https://api.github.com"
+    api_end_point = f"{base_url}/users/{username}"
+    headers = {"Authorization": "Token " + access_token}
+    try:
+        # Attempting a make an request to the API
+        response = requests.get(api_end_point, headers=headers)
+        # Raise errors for specific error codes
+        response.raise_for_status()
+        # Display the data
+        st.write(response.json())
+
+    # Handling various kinds of errors (4xx and 5xx i.e. client side errors and server side errors)
+    except requests.exceptions.HTTPError as errh:
+        st.error(errh)
+    except requests.exceptions.ConnectionError as errc:
+        st.error(errc)
+    except requests.exceptions.Timeout as errt:
+        st.error(errt)
+    except requests.exceptions.RequestException as err:
+        st.error(err)
 
 
 if __name__ == "__main__":
