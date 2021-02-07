@@ -142,7 +142,13 @@ def get_pr_list(access_token, username, repo_name):
                 }
             """
     try:
-        respone = requests.post(api_end_point, json={"query": query}, headers=headers)
+        response = requests.post(api_end_point, json={"query": query}, headers=headers)
+        # Raise errors for specific error codes
+        response.raise_for_status()
+        # JSONify the data
+        data = response.json()
+        # Getting the necessary attributes
+        data = data["data"]["repository"]["pullRequests"]["nodes"]
 
     # Handling various kinds of errors (4xx and 5xx i.e. client side errors and server side errors)
     except requests.exceptions.HTTPError as errh:
