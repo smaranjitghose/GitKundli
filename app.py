@@ -25,7 +25,12 @@ def main():
     if p_choice == "Home":
         st.title("Welcome to GitKundli")
     elif p_choice == "UserInfo":
+        # User Information Page
         st.title("Want to stalk a developer on GitHub?")
+        st.image(
+            "https://media.giphy.com/media/LtlF03XBMZl84/giphy.gif",
+            width=400,
+        )
         st.write("## We got you covered! :smile:")
         acess_token = st.text_input("Enter your GitHub Token", type="password")
         username = st.text_input("Enter the username of the profile", type="default")
@@ -69,6 +74,21 @@ def user_info(access_token, username):
         response.raise_for_status()
         # JSONify the data
         data = response.json()
+        data = fix_json_values(data)
+        # Now, extracting required data from the JSON for displaying!
+        st.write(f"Developer Name : {data['name']}")
+        st.write(f"Contact Email : {data['email']}")
+        st.write(f"Currently Works at : {data['company']}")
+        st.write(f"Located at : {data['location']}")
+        st.write(f"Number of Public Repositories : {data['public_repos']}")
+        st.write(f"Number of Public Repositories : {data['public_gists']}")
+        st.write(
+            f"No of developers who are following {data['name']} : {data['followers']} "
+        )
+        st.write(
+            f"No of developers whom {data['name']} is following : {data['following']} "
+        )
+        st.write(f"Is {data['name']} available for hire? : {data['hireable']}")
 
     # Handling various kinds of errors (4xx and 5xx i.e. client side errors and server side errors)
     except requests.exceptions.HTTPError as errh:
