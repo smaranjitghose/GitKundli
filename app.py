@@ -1,5 +1,7 @@
+import base64
 import json
 
+import pandas as pd
 import requests
 import streamlit as st
 
@@ -114,7 +116,7 @@ def user_info(access_token, username):
         st.error(err)
 
 
-def get_pr_list(access_token, username, repo_name):
+def get_pr_list(access_token, username, reponame):
     """
     Function to return a CSV file containing all the pull requests with number, author and labels
     """
@@ -122,7 +124,7 @@ def get_pr_list(access_token, username, repo_name):
     headers = {"Authorization": "Token " + access_token}
     query = """{
                     repository(name: "doc2pen", owner: "smaranjitghose") {
-                        pullRequests(first: 10, orderBy: {field: CREATED_AT, direction: DESC}) {
+                        pullRequests(first: 100, orderBy: {field: CREATED_AT, direction: DESC}) {
                             nodes {
                                     number
                                     state
@@ -149,6 +151,12 @@ def get_pr_list(access_token, username, repo_name):
         data = response.json()
         # Getting the necessary attributes
         data = data["data"]["repository"]["pullRequests"]["nodes"]
+        # Normalize our nested data into a dataframe
+        ## Can be improved like labels.edges.node.name
+        pr_df = pd.json_normalize(data)
+        # Display what we got!
+        st.table(pr_df)
+        st.markdown(get_table_download_link(pr_df), unsafe_allow_html=True)
 
     # Handling various kinds of errors (4xx and 5xx i.e. client side errors and server side errors)
     except requests.exceptions.HTTPError as errh:
@@ -159,6 +167,18 @@ def get_pr_list(access_token, username, repo_name):
         st.error(errt)
     except requests.exceptions.RequestException as err:
         st.error(err)
+
+
+def get_table_download_link(df):
+    """Generates a link allowing the data in a given panda dataframe to be downloaded
+    in:  dataframe
+    out: href string
+    """
+    csv = df.to_csv(index=False)
+    b64 = base64.b64encode(
+        csv.encode()
+    ).decode()  # some strings <-> bytes conversions necessary here
+    return f'<a href="data:file/csv;base64,{b64}" download="myfilename.csv">Download your CSV</a>'
 
 
 def fix_json_values(json_to_fix):
