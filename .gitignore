@@ -1,2 +1,10 @@
-__pycahe__/ 
+# Jupyter Notebook Related Stuff
+.ipynb_checkpoints/*
+notebooks/
+# VSCode config Log
+.vscode/*
+.DS_Store
+# Python Bytecode
+__pycache__/ 
+# Local Development Folder
 tryout/

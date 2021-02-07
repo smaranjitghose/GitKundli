@@ -1,4 +1,5 @@
-__pycache__/*
+# Python Bytecode
+__pycache__/
 # Information about our Git Repository
 .git/*
 # Our GitHub Repository's essentials: ReadMe, License, Code of Conduct, GitIgnore, Guides
