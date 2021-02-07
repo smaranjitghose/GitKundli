@@ -20,7 +20,7 @@ def main():
     # Just making sure we are not bothered by File Encoding warnings
     st.set_option("deprecation.showfileUploaderEncoding", False)
     # List of Available Web Pages to be rendered by the app
-    pages = ["Home", "UserInfo", "RepoInfo", "PR List"]
+    pages = ["Home", "UserInfo", "PR List", "RepoInfo"]
     p_choice = st.sidebar.selectbox("Menu", pages)
     if p_choice == "Home":
         st.title("Welcome to GitKundli")
@@ -118,6 +118,41 @@ def get_pr_list(access_token, username, repo_name):
     """
     Function to return a CSV file containing all the pull requests with number, author and labels
     """
+    api_end_point = "https://api.github.com/graphql"
+    headers = {"Authorization": "Token " + access_token}
+    query = """{
+                    repository(name: "doc2pen", owner: "smaranjitghose") {
+                        pullRequests(first: 10, orderBy: {field: CREATED_AT, direction: DESC}) {
+                            nodes {
+                                    number
+                                    state
+                                    author {
+                                        login
+                                    }
+                                    labels(first: 6){
+                                        edges{
+                                            node{
+                                                name
+                                            }
+                                        }
+                                    }
+                            }
+                        }
+                    }
+                }
+            """
+    try:
+        respone = requests.post(api_end_point, json={"query": query}, headers=headers)
+
+    # Handling various kinds of errors (4xx and 5xx i.e. client side errors and server side errors)
+    except requests.exceptions.HTTPError as errh:
+        st.error(errh)
+    except requests.exceptions.ConnectionError as errc:
+        st.error(errc)
+    except requests.exceptions.Timeout as errt:
+        st.error(errt)
+    except requests.exceptions.RequestException as err:
+        st.error(err)
 
 
 def fix_json_values(json_to_fix):
