@@ -178,7 +178,7 @@ def get_table_download_link(df):
     b64 = base64.b64encode(
         csv.encode()
     ).decode()  # some strings <-> bytes conversions necessary here
-    return f'<a href="data:file/csv;base64,{b64}" download="myfilename.csv">Download your CSV</a>'
+    return f'<a href="data:file/csv;base64,{b64}" download="gitkundli.csv">Download your CSV</a>'
 
 
 def fix_json_values(json_to_fix):
