@@ -20,7 +20,7 @@ def main():
     # Just making sure we are not bothered by File Encoding warnings
     st.set_option("deprecation.showfileUploaderEncoding", False)
     # List of Available Web Pages to be rendered by the app
-    pages = ["Home", "UserInfo", "RepoInfo", "Pull Requests"]
+    pages = ["Home", "UserInfo", "RepoInfo", "PR List"]
     p_choice = st.sidebar.selectbox("Menu", pages)
     if p_choice == "Home":
         st.title("Welcome to GitKundli")
@@ -36,6 +36,19 @@ def main():
         username = st.text_input("Enter the username of the profile", type="default")
         if st.button("Fetch Data"):
             user_info(access_token=acess_token, username=username)
+    elif p_choice == "PR List":
+        st.title("Repository Pull Request Fetcher")
+        st.write("#### Let's grab the recent 100 pull requests on a repo")
+        acess_token = st.text_input("Enter your GitHub Token", type="password")
+        username = st.text_input(
+            "Enter the username of the user whose repo you are interested in",
+            type="default",
+        )
+        reponame = st.text_input(
+            "Enter the name of the repository you are interested in", type="default"
+        )
+        if st.button("Fetch Data"):
+            get_pr_list(access_token=acess_token, username=username, reponame=reponame)
 
 
 def local_css(file_name):
@@ -99,6 +112,12 @@ def user_info(access_token, username):
         st.error(errt)
     except requests.exceptions.RequestException as err:
         st.error(err)
+
+
+def get_pr_list(access_token, username, repo_name):
+    """
+    Function to return a CSV file containing all the pull requests with number, author and labels
+    """
 
 
 def fix_json_values(json_to_fix):
