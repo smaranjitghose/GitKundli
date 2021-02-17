@@ -122,27 +122,33 @@ def get_pr_list(access_token, username, reponame):
     """
     api_end_point = "https://api.github.com/graphql"
     headers = {"Authorization": "Token " + access_token}
-    query = """{
-                    repository(name: "doc2pen", owner: "smaranjitghose") {
-                        pullRequests(first: 100, orderBy: {field: CREATED_AT, direction: DESC}) {
-                            nodes {
-                                    number
-                                    state
-                                    author {
-                                        login
-                                    }
-                                    labels(first: 6){
-                                        edges{
-                                            node{
-                                                name
-                                            }
-                                        }
-                                    }
+    query='{\n'+f'repository(name: "{reponame}", owner: "{username}")'+"""
+        {
+            pullRequests(first: 100, orderBy: {field: CREATED_AT, direction: DESC}) 
+            {
+                nodes 
+                {
+                    number
+                    state
+                    author 
+                    {
+                        login
+                    }
+                    labels(first: 6)
+                    {
+                        edges
+                        {
+                            node
+                            {
+                                name
                             }
                         }
                     }
                 }
-            """
+            }
+        }
+    }
+    """
     try:
         response = requests.post(api_end_point, json={"query": query}, headers=headers)
         # Raise errors for specific error codes
