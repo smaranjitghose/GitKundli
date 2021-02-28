@@ -53,7 +53,7 @@ def main():
             get_pr_list(access_token=acess_token, username=username, reponame=reponame)
 
 
-def local_css(file_name):
+def local_css(style.css):
     """
     Function to load and render local stylesheets
     """
