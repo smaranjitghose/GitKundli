@@ -19,6 +19,7 @@ def main():
         layout="wide",
         initial_sidebar_state="auto",
     )
+    # local_css("./style.css")
     # Just making sure we are not bothered by File Encoding warnings
     st.set_option("deprecation.showfileUploaderEncoding", False)
     # List of Available Web Pages to be rendered by the app

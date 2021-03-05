@@ -1,21 +1,111 @@
-/*
-Reference: https://discuss.streamlit.io/t/creating-a-nicely-formatted-search-field/1804
-*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 body {
-  color: #fff;
-  background-color: linear-gradient(
-    to right,
-    rgba(255, 0, 0, 0),
-    rgba(255, 0, 0, 1)
-  );
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #ffffff;
+  background-color: #12D8FA;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(38,39,48,0);
 }
 .stButton > button {
-  color: #4f8bf9;
-  border-radius: 50%;
-  height: 3em;
-  width: 3em;
+  background-color: #000000;
+  border-style:none;
+  z-index: 4;
+}
+.stButton > button:hover {
+  background-color: #333333;
+  color: #ffffff;
 }
 
+
+.st-c3 {
+  background: #84F9F0;
+  border: none;
+}
+
+
+.st-d0
+{
+  background: #84F9F0;
+  border: none;
+}
+.st-bb {
+  border: none;
+}
+.stTextInput
+{
+  color: #000000;
+}
 .stTextInput > div > div > input {
-  color: #4f8bf9;
+  color: #000000;
+}
+ /* sidebar */
+ .css-1aumxhk {
+  background-color: #011839;
+  background-image: none;
+  color: #ffffff;
+  border: none;
+  }
+  .css-1aumxhk:hover{
+    background-color: #011839;
+    background-image: none;
+    color: #ffffff;
+    border: none;
+    }
+    /* icons*/
+    .css-3xqji8{
+      background-color: #111;
+      color: #fff;
+      border: none;
+    }
+    .css-3xqji8:active{
+      background-color: #fff;
+      color: #111;
+      border: none;
+    }
+    .css-3xqji8:hover{
+      background-color: #fff;
+      color: #111;
+      border: none;
+    }
+h1,h2,h3,h4,h5
+{
+  font-family: 'Poppins', sans-serif;
+}
+/* sidebar heading */
+.css-145kmo2 {
+  font-size: 0.8rem;
+  color:#ffffff;
+  margin-bottom: 0.4rem;
+}
+/sidebar hover/
+.css-l7x2nz:hover{
+  background-color: #111;
+  color: #fff;
+}
+/* Settings Tab */
+
+.css-13qyw8b:hover {
+  margin: 0px;
+  padding: 0.25rem 1.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  cursor: pointer;
+  background-color: rgb(240, 242, 246);
+}
+
+.css-1vbb94r {
+  border-top: 1px solid rgb(213, 218, 229);
+  border-bottom: 1px solid rgb(213, 218, 229);
+  vertical-align: middle;
+  padding: 0.75rem;
+  color: #fff;
+  font-family: 'Poppins',sans-serif;
+}
+table{
+  background-color: #011839;
 }
