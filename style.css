@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+/*
+-----------------------
+    MAIN APP
+-----------------------
+*/
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -10,6 +15,11 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(38,39,48,0);
 }
+/*
+----------------------
+      BUTTONS
+----------------------
+*/
 .stButton > button {
   background-color: #000000;
   border-style:none;
@@ -20,21 +30,36 @@ body {
   color: #ffffff;
 }
 
-
+/*
+-------------------------------
+    SideBar DropDown Menu Box
+-------------------------------
+*/
 .st-c3 {
   background: #84F9F0;
   border: none;
 }
-
-
+/*
+-----------------------------
+    Down Chevron Button
+------------------------------
+*/
 .st-d0
 {
   background: #84F9F0;
   border: none;
 }
+/*
+-------------------------------
+  Border of the Dropdown Box
+-------------------------------
+*/
 .st-bb {
   border: none;
 }
+/*
+
+*/
 .stTextInput
 {
   color: #000000;
@@ -42,52 +67,63 @@ body {
 .stTextInput > div > div > input {
   color: #000000;
 }
- /* sidebar */
- .css-1aumxhk {
+/* 
+-----------------
+     Sidebar 
+-----------------
+*/
+.css-1aumxhk {
   background-color: #011839;
   background-image: none;
   color: #ffffff;
   border: none;
   }
-  .css-1aumxhk:hover{
+.css-1aumxhk:hover{
     background-color: #011839;
     background-image: none;
     color: #ffffff;
     border: none;
     }
-    /* icons*/
-    .css-3xqji8{
+/* 
+----------------
+    ICONS
+----------------
+*/
+.css-3xqji8{
       background-color: #111;
       color: #fff;
       border: none;
-    }
-    .css-3xqji8:active{
+  }
+.css-3xqji8:active{
+      background-color: #fff;
+      color: #111;
+      border: none;
+  }
+.css-3xqji8:hover{
       background-color: #fff;
       color: #111;
       border: none;
     }
-    .css-3xqji8:hover{
-      background-color: #fff;
-      color: #111;
-      border: none;
-    }
-h1,h2,h3,h4,h5
-{
-  font-family: 'Poppins', sans-serif;
-}
-/* sidebar heading */
+/* 
+-----------------
+   Sidebar Menu
+-----------------
+*/
 .css-145kmo2 {
   font-size: 0.8rem;
   color:#ffffff;
   margin-bottom: 0.4rem;
 }
-/sidebar hover/
+
 .css-l7x2nz:hover{
   background-color: #111;
   color: #fff;
 }
-/* Settings Tab */
-
+/* 
+-----------------
+    Main Menu
+-----------------
+*/
 .css-13qyw8b:hover {
   margin: 0px;
   padding: 0.25rem 1.5rem;
@@ -106,6 +142,38 @@ h1,h2,h3,h4,h5
   color: #fff;
   font-family: 'Poppins',sans-serif;
 }
+/* 
+-----------------
+   Table Color
+-----------------
+*/
 table{
   background-color: #011839;
+}
+/* 
+-----------------
+    Headings
+-----------------
+*/
+h1,h2,h3,h4,h5
+{
+  font-family: 'Poppins', sans-serif;
+}
+/*
+---------------
+    Footer
+---------------
+*/
+footer {
+	visibility: hidden;
+	}
+footer:after {
+	content:'Made with \01F9E1 by Smaranjit'; 
+	visibility: visible;
+  text-align: center;
+	display: block;
+	position: relative;
+  color: #fff  !important;
+	padding: 5px;
+	top: 2px;
 }
